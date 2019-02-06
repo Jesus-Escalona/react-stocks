@@ -1,16 +1,16 @@
 import React, { Fragment } from 'react';
 
-const SearchBar = () => {
+const SearchBar = (props) => {
   return (
     <Fragment>
 
       <strong>Sort by:</strong>
       <label>
-        <input type="radio" value="Alphabetically" checked={null} onChange={null}/>
+        <input type="radio" value="alphabetically" checked={props.check} onChange={props.radio}/>
         Alphabetically
       </label>
       <label>
-        <input type="radio" value="Price" checked={null} onChange={null}/>
+        <input type="radio" value="price" checked={!props.check} onChange={props.radio} />
         Price
       </label>
       <br/>

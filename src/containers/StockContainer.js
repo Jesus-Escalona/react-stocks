@@ -4,11 +4,12 @@ import Stock from '../components/Stock'
 class StockContainer extends Component {
 
   render() {
+    const stockList = this.props.stocks.map(s => <Stock key={s.id} stock={s} add={this.props.add}/>)
     return (
       <Fragment>
         <h2>Stocks</h2>
         {
-          //render the list of stocks here
+          stockList
         }
       </Fragment>
     );

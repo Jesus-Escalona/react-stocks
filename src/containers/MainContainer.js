@@ -5,28 +5,50 @@ import SearchBar from '../components/SearchBar'
 
 class MainContainer extends Component {
 
-  handleRadio(){
-
+  state = {
+    stocks: [],
+    portfolio: [],
+    radio: true
   }
 
-  handleSelect(){
+  componentDidMount() {
+    this.fetchStocks()
+  }
+
+  fetchStocks = () => {
+    fetch("http://localhost:3001/stocks")
+    .then(res => res.json())
+    .then(stocks => this.setState({stocks}))
+  }
+
+  addToPortfolio = (stock) => {
+    this.setState({portfolio: [...this.state.portfolio, stock]})
+  }
+
+
+  handleRadio = (e) => {
+    this.setState({radio: !this.state.radio})
+  }
+
+  handleSelect = () => {
 
   }
 
   render() {
+    const stocks = this.state.radio ? this.state.stocks.sort((a,b) => a.name.localeCompare(b.name)) : this.state.stocks.sort((a,b) => b.price - a.price)
     return (
       <Fragment>
-        <SearchBar/>
+        <SearchBar radio={this.handleRadio} check={this.state.radio}/>
 
           <div className="row">
             <div className="col-8">
 
-              <StockContainer/>
+              <StockContainer stocks={stocks} add={this.addToPortfolio}/>
 
             </div>
             <div className="col-4">
 
-              <PortfolioContainer/>
+              <PortfolioContainer stocks={this.state.portfolio}/>
 
             </div>
           </div>
